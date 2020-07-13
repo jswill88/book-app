@@ -1,16 +1,15 @@
 'use strict';
 
 const express = require('express');
-require('ejs');
-require('dotenv').config();
 const superagent = require('superagent');
 const pg = require('pg');
 const methodOverride = require('method-override');
 const dbClient = new pg.Client(process.env.DATABASE_URL);
 const app = express();
-
-
 const PORT = process.env.PORT || 3001;
+require('ejs');
+require('dotenv').config();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -116,7 +115,6 @@ function bookRequest(request, response) {
       response.status(200).render('books/show', {book: book[0], bookshelves: shelves});
     }).catch(error => errorHandler(error, request, response));
 }
-
 
 function updateBooks(request, response) {
   let { title, authors, description, image_url, isbn, bookshelf } = request.body;

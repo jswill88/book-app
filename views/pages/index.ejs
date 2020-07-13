@@ -2,6 +2,7 @@
 <html lang="en">
     <%- include ('../layout/head.ejs') %>
 <body>
+    <main>
     <div class="book-section">
         
         <% let testArr = homeArray.reduce((a,v,i,ar) => { %>
@@ -61,5 +62,7 @@
         </section>
             <p>You have this many books in the Database: <%= homeArray.length %></p>
     </div>
+    </main>
+    <%- include ('../layout/footer') %>
 </body>
 </html>

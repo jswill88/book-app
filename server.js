@@ -75,7 +75,7 @@ function deleteBook(request,response) {
   let sql = 'DELETE FROM books WHERE id = $1;';
   let safeValue = [deleteId];
   dbClient.query(sql, safeValue)
-    .then(()=>
+    .then(() =>
       response.status(200).redirect('/'))
     .catch(error => errorHandler(error, request, response));
 }
@@ -102,42 +102,20 @@ function addToDatabase(request, response) {
 
 
 function bookRequest(request, response) {
-// let bookshelf = getBookShelfs();
-  // console.log('bookshelf array', bookshelf);
   let id = request.params.id;
-  let sql = 'SELECT * FROM books WHERE id=$1;';
-  let safeValues = [id];
-  dbClient.query(sql, safeValues)
-    .then(display => {
-      response.status(200).render('books/show', {book: display.rows[0]});
+  let sql = 'SELECT * FROM books;';
+  dbClient.query(sql)
+    .then(books => {
+      let book = books.rows.filter(book => book.id === parseInt(id));
+      let shelves = books.rows.reduce((arr,book) => {
+        if (!arr.includes(book.bookshelf)) {
+          arr.push(book.bookshelf);
+        }
+        return arr;
+      },[]);
+      response.status(200).render('books/show', {book: book[0], bookshelves: shelves});
     }).catch(error => errorHandler(error, request, response));
 }
-
-// function bookRequest(request, response) {
-//     let rows = getBookShelfs();
-//     let display = getHomeArray(request);
-//     response.status(200).render('./pages/books/show.ejs', { homeArray: display, bookshelfArray: rows});
-// }
-
-// function getBookShelfs () {
-//   let bsSql = 'SELECT DISTINCT bookshelf FROM books;';
-//   dbClient.query(bsSql)
-//     .then(results => {
-//       console.log('sql results', results.rows);
-//       return results.rows;
-//     }).catch(error => console.log(error));
-// }
-// function getHomeArray(request) {
-//     let id = request.params.id;
-//     let sql = 'SELECT * FROM books WHERE id=$1;';
-//     let safeValues = [id];
-//     dbClient.query(sql, safeValues)
-//         .then(display => {
-//           return display.rows;
-//         }).catch(error => errorHandler(error, request, response));
-// }
-
-
 
 
 function updateBooks(request, response) {

@@ -19,13 +19,4 @@ INSERT INTO books (
     bookshelf
 )
 
-VALUES (
-    'test1',
-    'test2',
-    4444,
-    'test4',
-    'test5',
-    'test6'
-);
-
 SELECT * FROM books;

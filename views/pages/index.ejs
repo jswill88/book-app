@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include ('../layout/head.ejs') %>
+    <%- include ('../layout/head') %>
 <body>
+    <%- include ('../layout/header') %>
     <main>
     <div class="book-section">
-        
-        <% let testArr = homeArray.reduce((a,v,i,ar) => { %>
-          <%  if((ar[0].bookshelf !== v.bookshelf)) { %>
-            <%     a = true  %>
-            <%  } %>
-            <%    return a; %>
-            <% }, false) %>
-        <% if(testArr) {  %> 
 
         <form action="/bookshelf?_method=PUT" method="POST">
          <select id="genre" name="bookshelf">
             <option value="">Please Select a Bookshelf (genre)</option>
-        <div class="book-section">
-
-        
             <% let array = [] %>
             <% homeArray.forEach(book => { %>
             <% if(!array.includes(book.bookshelf)){ %>
@@ -30,36 +20,10 @@
             </select>
             <button>Submit</button>
         </form>
+        <%- include ('../layout/single-book') %>
         <a href = "/searches/new">Find new books</a>
-     <%   } else { %>
-            <h2><%=homeArray[0].bookshelf%> Bookshelf </h2>
-            <a href="/">Back to main</a>
-     <% } %>
 
-        <section class="single-book">
-            <% homeArray.forEach( book => { %>
-                <form action="/books" method="POST">
-                    <input type=hidden name="image_url" value="<%=book.image_url%>" />
-                    <img src=<%= book.image_url %> 
-                    alt= <%= book.title %> 
-                    />
-                    <input type=hidden name="title" value="<%=book.title%>" />
-                    <h2><%= book.title %></h2>
-                    <input type=hidden name="authors" value="<%=book.authors%>" />
-                    <h3><%= book.authors %></h3>
-                    <input type=hidden name="description" value="<%=book.description%>" />
-                    <p><%= book.description %></p>
-                    <input type=hidden name="isbn" value="<%=book.isbn%>" />
-                    <p><%= book.isbn %></p>
-                    <input type=hidden name="bookshelf" value="<%=book.bookshelf%>" />
-                    <p><%= book.bookshelf %></p>
-                    <button class="submitButton" type="submit">Show Details</button>
-                </form>
-                <form action="/delete/<%= book.id %>?_method=delete" method="POST">
-                <button>Delete from Library</button>
-                </form>
-            <% }) %>
-        </section>
+
             <p>You have this many books in the Database: <%= homeArray.length %></p>
     </div>
     </main>

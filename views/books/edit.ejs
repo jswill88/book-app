@@ -1,12 +1,33 @@
 <section>
     <form action="/update/<%= book.id%>?_method=PUT" method="POST">
+        <fieldset>
+            <legend>Update Book Details</legend>
+                <section>
+        <label>Title:
         <input type="text" name="title" value="<%= book.title %>">
+        </label>
+        <label>Author:
         <input type="text" name="authors" value="<%= book.authors %>">
+    </label>
+        <label>Image URL:
         <input type="text" name="image_url" value="<%= book.image_url %>">
-        <input type="text" name="description" value="<%= book.description %>">
+    </label>
+        <label>ISBN:
         <input type="text" name="isbn" value="<%= book.isbn %>">
-        <input type="text" name="bookshelf" value="<%= book.bookshelf %>">
-        <h1><%=bookshelves%></h1>
-        <button class="submitButton" type="submit">Make Changes</button>
+    </label>
+        <label>Description:
+        <textarea type="text" name="description" ><%= book.description %></textarea>
+    </label>
+        <label>Bookshelf:
+        <input type="text" list="bookshelf" name="bookshelf" value="<%=book.bookshelf %>"/>
+        <datalist id="bookshelf" >
+            <% bookshelves.forEach(bookshelf =>{ %>
+                <option><%= bookshelf %></option>
+                <% }) %>
+            </datalist>
+            </label>
+            <button class="submitButton" type="submit">Make Changes</button>
+        </section>
+        </fieldset>
     </form>
 </section>

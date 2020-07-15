@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ('../layout/head.ejs') %>
+  <body>
+    <%- include ('../layout/header') %>
+    <main>
+      <div class="book-section">
+    <h2><%=homeArray[0].bookshelf%> Bookshelf </h2>
+    <a href="/">Back to main</a>
+    <%- include ('../layout/single-book') %>
+      </div>
+      <%- include ('../layout/footer') %>
+</main>
+    </body>
+
+</html>

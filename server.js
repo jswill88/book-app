@@ -2,13 +2,14 @@
 
 const express = require('express');
 const superagent = require('superagent');
-const pg = require('pg');
 const methodOverride = require('method-override');
-const dbClient = new pg.Client(process.env.DATABASE_URL);
-const app = express();
-const PORT = process.env.PORT || 3001;
-require('ejs');
+const pg = require('pg');
 require('dotenv').config();
+// These need to be after dot env require
+const dbClient = new pg.Client(process.env.DATABASE_URL);
+const PORT = process.env.PORT || 3001;
+const app = express();
+require('ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -34,20 +35,25 @@ function displayBookshelf (request,response) {
   let safeValue = [bookshelf];
   dbClient.query(sql, safeValue)
     .then(databaseSearchResults => {
-      response.render('pages/index.ejs', { homeArray: databaseSearchResults.rows });
+      response.render('pages/bookshelf', { homeArray: databaseSearchResults.rows });
     }).catch(error => errorHandler(error, request, response));
 }
 
 function renderHomePage(request, response) {
-  let sql = 'SELECT DISTINCT id, title, authors, image_url, description, isbn, bookshelf FROM books;';
+  console.log('homepage function');
+  // let sql = 'SELECT DISTINCT id, title, authors, image_url, description, isbn, bookshelf FROM books;';
+  console.log(process.env.PORT);
+  let sql = 'SELECT * FROM books;';
+  console.log(sql);
   dbClient.query(sql)
     .then(databaseSearchResults => {
+      console.log('search results', databaseSearchResults);
       response.render('pages/index', { homeArray: databaseSearchResults.rows });
     }).catch(error => errorHandler(error, request, response));
 }
 
 app.get('/searches/show', (request, response) => {
-  response.render('pages/searches/show.ejs');
+  response.render('searches/show');
 });
 
 function getBooksFromAPI(request, response) {
@@ -61,12 +67,12 @@ function getBooksFromAPI(request, response) {
       let totalBookArray = bookArray.map(book => {
         return new Book(book.volumeInfo);
       });
-      response.render('pages/searches/show.ejs', { searchResults: totalBookArray });
+      response.render('searches/show', { searchResults: totalBookArray });
     }).catch(error => errorHandler(error, request, response));
 }
 
 function searchForm(request, response) {
-  response.render('searches/new.ejs');
+  response.render('searches/new');
 }
 
 function deleteBook(request,response) {
@@ -138,6 +144,7 @@ function Book(obj) {
 }
 
 function errorHandler(error, request, response) {
+  console.error(error);
   response.status(500).send({ status: 500, responseText: 'That did not go as expected' });
 }
 
@@ -146,4 +153,4 @@ dbClient.connect()
     app.listen(PORT, () => {
       console.log(`Server is running on ${PORT}`);
     });
-  });
+  }).catch(error => errorHandler(error));

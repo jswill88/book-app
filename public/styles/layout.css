@@ -6,19 +6,56 @@ h4 {
   }
   [action="/searches"] {
     background-color: rgb(213, 210, 210);
-    padding: 10px;
-    flex-flow: column nowrap;
+    padding: 10px 0 20px 0;
+    flex-flow: row;
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
   }
   [action="/searches"] section {
-    text-align: left;
-    padding-left: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    height: 300px;
+    width: 400px;
+    background-color: black;
+    color: white;
   }
+  [action^="/searches"] input, [action^="/searches"] button  {
+    font-size: .9em;
+    padding-left: 5px;
+    width: 60%;
+  }
+
+  [action^="/searches"] section fieldset {
+    border-color: white;
+    width: 60%;
+    height: 40px;
+    justify-content: stretch;
+    align-items: center;
+    display: flex;
+    padding: 0;
+  }
+  input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+  }
+  input[type="radio"] + fieldset label {
+    line-height: 40px;
+  }
+  input[type="radio"]:checked + fieldset{
+    outline: rgba(3, 255, 179, 0.8) auto 3px;
+  }
+
   fieldset {
     border: black solid 1px;
     width: 200px;
     padding: 10px;
+    border-radius: 4px;
   }
   fieldset:last-of-type {
     margin-top: 10px;
@@ -27,4 +64,18 @@ h4 {
     width: 200px;
     height: 40px;
     margin: 5px 0 5px 0;
+  }
+  .single-book {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  .single-book form {
+    width: 40%;
+    border: 4px solid grey;
+    margin: 10px;
+    padding: 10px 10px 20px 10px;
+    border-radius: 5px;
+    /* color: white; */
+    /* background-color: black; */
   }

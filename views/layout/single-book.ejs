@@ -8,17 +8,14 @@
           <input type=hidden name="title" value="<%=book.title%>" />
           <h2><%= book.title %></h2>
           <input type=hidden name="authors" value="<%=book.authors%>" />
-          <h3><%= book.authors %></h3>
+          <h3><%= book.authors.split(',').join(', ') %></h3>
           <input type=hidden name="description" value="<%=book.description%>" />
-          <p><%= book.description %></p>
+          <!-- <p><%# book.description %></p> -->
           <input type=hidden name="isbn" value="<%=book.isbn%>" />
-          <p><%= book.isbn %></p>
+          <!-- <p><%# book.isbn %></p> -->
           <input type=hidden name="bookshelf" value="<%=book.bookshelf%>" />
-          <p><%= book.bookshelf %></p>
+          <p><%# book.bookshelf %></p>
           <button class="submitButton" type="submit">Show Details</button>
-      </form>
-      <form action="/delete/<%= book.id %>?_method=delete" method="POST">
-      <button>Delete from Library</button>
       </form>
   <% }) %>
 </section>

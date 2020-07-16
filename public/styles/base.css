@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Croissant+One&family=Scope+One&display=swap');
+
 *{
     box-sizing: border-box;
+    font-family: 'Scope One', serif;
   }
   body {
     width: 768px;
     margin: 0 auto;
     text-align: center;
     background-color: grey;
+    
   }

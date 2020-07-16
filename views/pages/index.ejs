@@ -5,26 +5,22 @@
     <%- include ('../layout/header') %>
     <main>
     <div class="book-section">
-
+        <p>You have this many books in the Database: <%= homeArray.length %></p>
         <form action="/bookshelf?_method=PUT" method="POST">
          <select id="genre" name="bookshelf">
-            <option value="">Please Select a Bookshelf (genre)</option>
+            <option value="">Find Books by Author</option>
             <% let array = [] %>
             <% homeArray.forEach(book => { %>
-            <% if(!array.includes(book.bookshelf)){ %>
-               <option value="<%=book.bookshelf%>">
-                <%=book.bookshelf%></option>
-                <% array.push(book.bookshelf) %>
+            <% if(!array.includes(book.authors)){ %>
+               <option value="<%=book.authors%>">
+                <%=book.authors.split(',').join(', ')%></option>
+                <% array.push(book.authors) %>
                 <% } %>
             <% },[]) %> 
             </select>
             <button>Submit</button>
         </form>
         <%- include ('../layout/single-book') %>
-        <a href = "/searches/new">Find new books</a>
-
-
-            <p>You have this many books in the Database: <%= homeArray.length %></p>
     </div>
     </main>
     <%- include ('../layout/footer') %>

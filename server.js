@@ -24,15 +24,16 @@ app.post('/books', addToDatabase);
 app.get('/books/:id', bookRequest);
 app.put('/update/:books_id', updateBooks);
 app.delete( '/delete/:id', deleteBook);
+app.get('/error', errorPage);
 app.get('*', (request, response) => {
   response.status(404).send('Sorry, that did not work');
 });
 
 
 function displayBookshelf (request,response) {
-  const bookshelf = request.body.bookshelf;
-  let sql = 'SELECT DISTINCT id, title, authors, image_url, description, isbn, bookshelf FROM books WHERE bookshelf=$1;';
-  let safeValue = [bookshelf];
+  const authors = request.body.bookshelf;
+  let sql = 'SELECT DISTINCT id, title, authors, image_url, description, isbn, bookshelf FROM books WHERE authors=$1;';
+  let safeValue = [authors];
   dbClient.query(sql, safeValue)
     .then(databaseSearchResults => {
       response.render('pages/bookshelf', { homeArray: databaseSearchResults.rows });
@@ -40,8 +41,6 @@ function displayBookshelf (request,response) {
 }
 
 function renderHomePage(request, response) {
-  console.log('homepage function');
-  // let sql = 'SELECT DISTINCT id, title, authors, image_url, description, isbn, bookshelf FROM books;';
   console.log(process.env.PORT);
   let sql = 'SELECT * FROM books;';
   console.log(sql);
@@ -57,8 +56,8 @@ app.get('/searches/show', (request, response) => {
 });
 
 function getBooksFromAPI(request, response) {
-  let query = request.body.search[0];
-  let titleorAuthor = request.body.search[1];
+  let query = request.body.search;
+  let titleorAuthor = request.body.titleAuthor;
   let url = `https://www.googleapis.com/books/v1/volumes?q=+in${titleorAuthor}:${query}`;
 
   superagent.get(url)
@@ -72,7 +71,7 @@ function getBooksFromAPI(request, response) {
 }
 
 function searchForm(request, response) {
-  response.render('searches/new');
+  response.status(200).render('searches/new');
 }
 
 function deleteBook(request,response) {
@@ -134,6 +133,10 @@ function updateBooks(request, response) {
     }).catch(error => errorHandler(error, request, response));
 }
 
+function errorPage(request,response) {
+  response.status(404).render('pages/error');
+}
+
 function Book(obj) {
   this.title = obj.title || 'Title not available';
   this.authors = obj.authors || 'Author not available';
@@ -145,7 +148,7 @@ function Book(obj) {
 
 function errorHandler(error, request, response) {
   console.error(error);
-  response.status(500).send({ status: 500, responseText: 'That did not go as expected' });
+  response.status(500).redirect('/error');
 }
 
 dbClient.connect()

@@ -4,11 +4,14 @@
             alt="<%= book.title %>"
             />
             <h2><%= book.title %></h2>
-            <h3><%= book.authors %></h3>
+            <h3><%= book.authors.split(',').join(', ') %></h3>
             <p><%= book.description %></p>
             <p>ISBN: <%= book.isbn %></p>
             <p>Bookshelf: <%= book.bookshelf %></p>
             <button id="edit">Edit Details</button>
+            <form action="/delete/<%= book.id %>?_method=delete" method="POST">
+                <button>Delete from Library</button>
+                </form>
         </form>
 </section>
 

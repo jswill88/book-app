@@ -8,11 +8,12 @@
             <p><%= book.description %></p>
             <p>ISBN: <%= book.isbn %></p>
             <p>Bookshelf: <%= book.bookshelf %></p>
+            <div class="detail-buttons">
             <button id="edit">Edit Details</button>
             <form action="/delete/<%= book.id %>?_method=delete" method="POST">
                 <button>Delete from Library</button>
                 </form>
-        </form>
+                </div>
 </section>
 
 

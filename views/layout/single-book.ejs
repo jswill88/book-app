@@ -1,5 +1,5 @@
 <section class="single-book">
-  <% homeArray.forEach( book => { %>
+  <% homeArray.sort((a,b) => a.title < b.title ? -1 : 1).forEach( book => { %>
       <form action="/books" method="POST">
           <input type=hidden name="image_url" value="<%=book.image_url%>" />
           <img src=<%= book.image_url %> 
@@ -10,11 +10,9 @@
           <input type=hidden name="authors" value="<%=book.authors%>" />
           <h3><%= book.authors.split(',').join(', ') %></h3>
           <input type=hidden name="description" value="<%=book.description%>" />
-          <!-- <p><%# book.description %></p> -->
           <input type=hidden name="isbn" value="<%=book.isbn%>" />
-          <!-- <p><%# book.isbn %></p> -->
           <input type=hidden name="bookshelf" value="<%=book.bookshelf%>" />
-          <p><%# book.bookshelf %></p>
+          <p><%= book.bookshelf %></p>
           <button class="submitButton" type="submit">Show Details</button>
       </form>
   <% }) %>

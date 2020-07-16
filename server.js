@@ -25,9 +25,7 @@ app.get('/books/:id', bookRequest);
 app.put('/update/:books_id', updateBooks);
 app.delete( '/delete/:id', deleteBook);
 app.get('/error', errorPage);
-app.get('*', (request, response) => {
-  response.status(404).send('Sorry, that did not work');
-});
+app.get('*', errorPage);
 
 
 function displayBookshelf (request,response) {
@@ -41,19 +39,13 @@ function displayBookshelf (request,response) {
 }
 
 function renderHomePage(request, response) {
-  console.log(process.env.PORT);
   let sql = 'SELECT * FROM books;';
-  console.log(sql);
   dbClient.query(sql)
     .then(databaseSearchResults => {
-      console.log('search results', databaseSearchResults);
+      // if results.rows is 0, do an ajax call
       response.render('pages/index', { homeArray: databaseSearchResults.rows });
     }).catch(error => errorHandler(error, request, response));
 }
-
-app.get('/searches/show', (request, response) => {
-  response.render('searches/show');
-});
 
 function getBooksFromAPI(request, response) {
   let query = request.body.search;
@@ -66,7 +58,12 @@ function getBooksFromAPI(request, response) {
       let totalBookArray = bookArray.map(book => {
         return new Book(book.volumeInfo);
       });
-      response.render('searches/show', { searchResults: totalBookArray });
+      let sql = 'SELECT DISTINCT bookshelf FROM books;';
+      dbClient.query(sql)
+        .then(results => {
+          let bookshelves = results.rows;
+          response.render('searches/show', { searchResults: totalBookArray, bookshelves: bookshelves});
+        });
     }).catch(error => errorHandler(error, request, response));
 }
 
@@ -104,7 +101,6 @@ function addToDatabase(request, response) {
     });
 }
 
-
 function bookRequest(request, response) {
   let id = request.params.id;
   let sql = 'SELECT * FROM books;';
@@ -127,8 +123,7 @@ function updateBooks(request, response) {
   let booksId = request.params.books_id;
   let safeValues = [authors, title, isbn, image_url, description, bookshelf, booksId];
   dbClient.query(sql, safeValues)
-    .then(sqlResults => {
-      console.log(sqlResults.rows);
+    .then(() => {
       response.status(200).redirect(`/books/${booksId}`);
     }).catch(error => errorHandler(error, request, response));
 }

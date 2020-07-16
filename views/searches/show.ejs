@@ -7,7 +7,7 @@
         <%- include('../layout/header') %>
         <section class="book-section">
         <% searchResults.forEach( book => { %>
-            <form action="/books" method="POST">
+            <form action="/books" method="POST" class="search-results">
                 <input type=hidden name="image_url" value="<%=book.image_url%>" />
                 <img src=<%= book.image_url %> 
                 alt= <%= book.title %> 
@@ -15,17 +15,21 @@
                 <input type=hidden name="title" value="<%=book.title%>" />
                 <h2><%= book.title %></h2>
                 <input type=hidden name="authors" value="<%=book.authors%>" />
-                <h3><%= book.authors %></h3>
+                <h3><%= book.authors.join(', ') %></h3>
                 <input type=hidden name="description" value="<%=book.description%>" />
                 <p><%= book.description %></p>
                 <input type=hidden name="isbn" value="<%=book.isbn%>" />
-                <p><%= book.isbn %></p>
                 <label for="bookshelf">What bookshelf is this for?</label>
-                <input type="text" name="bookshelf" required/>
-                <p><%= book.bookshelf %></p>
+                    <input type="text" list="bookshelf" name="bookshelf" required/>
+                    <datalist id="bookshelf" >
+                        <% bookshelves.forEach(bookshelf =>{ %>
+                            <option><%= bookshelf.bookshelf %></option>
+                            <% }) %>
+                        </datalist>
                 <button class="submitButton" type="submit">Add to Collection</button>
             </form>
         <% }) %>
         </section>
+        <%- include ('../layout/footer') %>
 </body>
 </html>

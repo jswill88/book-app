@@ -4,10 +4,15 @@
     box-sizing: border-box;
     font-family: 'Scope One', serif;
   }
+  main {
+    padding-bottom: 11.5vh;
+  }
   body {
     width: 768px;
     margin: 0 auto;
     text-align: center;
-    background-color: grey;
+    background-color: #210d2d;
+    min-height: 100vh;
+    position: relative;
     
   }

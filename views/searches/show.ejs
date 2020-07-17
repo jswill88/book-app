@@ -6,7 +6,9 @@
     <%- include('../layout/header') %>
     <main>
             <section class="book-section">
-        <% searchResults.forEach( book => { %>
+        <% let regex = /(^a\s|^the\s)/i %>
+        <%let newArray = searchResults.sort((a,b) => a.title.replace(regex,'') < b.title.replace(regex,'') ? -1 : 1) %>
+        <% newArray.forEach( book => { %>
             <form action="/books" method="POST" class="search-results">
                 <input type=hidden name="image_url" value="<%=book.image_url%>" />
                 <img src=<%= book.image_url %> 

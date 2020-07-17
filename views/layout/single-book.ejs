@@ -1,5 +1,7 @@
 <section class="single-book">
-  <% homeArray.sort((a,b) => a.title < b.title ? -1 : 1).forEach( book => { %>
+  <% let regex = /(^a\s|^the\s)/i %>
+  <%let newArray = homeArray.sort((a,b) => a.title.replace(regex,'') < b.title.replace(regex,'') ? -1 : 1) %>
+      <% newArray.forEach( book => { %>
       <form action="/books" method="POST">
           <input type=hidden name="image_url" value="<%=book.image_url%>" />
           <img src=<%= book.image_url %> 

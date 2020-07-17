@@ -36,7 +36,7 @@ function displayBookshelf(request, response) {
   let safeValue = [authorOrBookshelf];
   dbClient.query(sql, safeValue)
     .then(databaseSearchResults => {
-      response.render('pages/bookshelf', { homeArray: databaseSearchResults.rows });
+      response.render('pages/bookshelf', { homeArray: databaseSearchResults.rows, which: sortBy });
     }).catch(error => errorHandler(error, request, response));
 }
 

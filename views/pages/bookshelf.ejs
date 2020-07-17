@@ -5,7 +5,11 @@
     <%- include ('../layout/header') %>
     <main>
       <div class="book-section">
+        <% if (which === 'authors') { %>
     <h2>Books by <%=homeArray[0].authors.split(',').join(', ')%></h2>
+       <%  } else { %>
+    <h2><%=homeArray[0].bookshelf%> Bookshelf</h2>    
+        <% } %>
     <%- include ('../layout/single-book') %>
       </div>
     </main>

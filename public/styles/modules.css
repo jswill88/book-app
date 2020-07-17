@@ -52,7 +52,8 @@
   box-sizing: unset;
   background-color: black;
   color: white;
-  width: 550px;
+  /* width: 100%;
+  max-width: 550px; */
   height: 450px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -70,6 +71,8 @@
 [action^="/update"] fieldset {
   border-radius: 5px;
   border-color: black;
+  width: 98%;
+  max-width: 570px;
 }
 [action^="/"] legend{
   font-size: 2em;
@@ -90,7 +93,7 @@
   justify-content: center;
   margin-bottom: 10px;
   background-color: rgb(213, 210, 210);
-  padding: 20px;
+  padding: 20px 0;
 }
 [action^="/update"] label:nth-last-of-type(2) {
   grid-column: 1 / span 2;
@@ -102,7 +105,8 @@
 }
 [action^="/update"] textarea {
   height: 150px;
-  width: 520px;
+  width: 98%;
+  max-width: 520px;
   color: rgb(136, 133, 133);
   resize: none;
   margin-top: 10px;
@@ -122,7 +126,6 @@
 [action^="/"] button{
   background-color: black;
   color: white;
-  
   border: 1px solid white;
   border-radius: 4px;
 
@@ -223,4 +226,7 @@ footer div{
 }
 [action^="/book"] select {
   width: 200px;
+}
+.single-book p {
+  padding: 0;
 }

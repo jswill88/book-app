@@ -15,7 +15,7 @@ $(document).ready(function () {
   });
 });
 $('#edit').click(()=> {
-  $('.book-section').slideUp(1000);
-  $('[action^="/update"]').slideDown(1000);
+  $('.book-section').slideUp(350);
+  $('[action^="/update"]').slideDown(350);
   $('#edit').hide();
 });

@@ -147,7 +147,7 @@ function Book(obj) {
   this.authors = obj.authors || 'Author not available';
   this.image_url = obj.imageLinks.thumbnail ? obj.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
   this.description = obj.description || 'Description not available';
-  this.isbn = obj.industryIdentifiers[0].identifier;
+  this.isbn = obj.industryIdentifiers[0].identifier || 'ISBN not available';
   this.bookshelf = obj.bookshelf || '';
 }
 

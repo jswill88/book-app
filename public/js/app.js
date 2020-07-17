@@ -5,11 +5,12 @@ $(document).ready(function () {
   let stickyNav = $('nav').offset().top;
   console.log(stickyNav);
   $(window).scroll(() => {
-    console.log($(window).scrollTop);
-    if ($(window).scrollTop() > stickyNav + 20) {
+    if ($(window).scrollTop() > stickyNav) {
       $('nav').css('position','fixed').css('top','0');
+      $('main').css('padding-top',$('nav').height() + 25);
     } else {
       $('nav').css('position','static');
+      $('main').css('padding-top','0');
     }
   });
 });

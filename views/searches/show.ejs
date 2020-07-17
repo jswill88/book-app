@@ -15,7 +15,11 @@
                 <input type=hidden name="title" value="<%=book.title%>" />
                 <h2><%= book.title %></h2>
                 <input type=hidden name="authors" value="<%=book.authors%>" />
+                <% if (Array.isArray(book.authors)) { %>
                 <h3><%= book.authors.join(', ') %></h3>
+                <% } else { %>
+                    <h3><%= book.authors %></h3>
+                <% } %>
                 <input type=hidden name="description" value="<%=book.description%>" />
                 <p><%= book.description %></p>
                 <input type=hidden name="isbn" value="<%=book.isbn%>" />

@@ -216,3 +216,11 @@ footer div{
 [action="/books"] input {
   margin-top: 10px;
 }
+[action^="/book"] {
+  /* display: inline; */
+  justify-self: center;
+  padding: 10px 0;
+}
+[action^="/book"] select {
+  width: 200px;
+}

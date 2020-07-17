@@ -30,9 +30,10 @@ app.get('*', errorPage);
 
 
 function displayBookshelf(request, response) {
-  const authors = request.body.bookshelf;
-  let sql = 'SELECT DISTINCT id, title, authors, image_url, description, isbn, bookshelf FROM books WHERE authors=$1;';
-  let safeValue = [authors];
+  let sortBy = Object.keys(request.body)[0];
+  const authorOrBookshelf = request.body[sortBy];
+  let sql = `SELECT DISTINCT id, title, authors, image_url, description, isbn, bookshelf FROM books WHERE ${sortBy}=$1;`;
+  let safeValue = [authorOrBookshelf];
   dbClient.query(sql, safeValue)
     .then(databaseSearchResults => {
       response.render('pages/bookshelf', { homeArray: databaseSearchResults.rows });

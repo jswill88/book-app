@@ -1,9 +1,8 @@
 'use strict';
 
 const pg = require('pg');
-require('dotenv').config();
 const dbClient = new pg.Client(process.env.DATABASE_URL);
-dbClient.connect().catch(err => console.log(err));
+dbClient.connect().catch(error => errorHandler(error));
 
 function displayBookshelf(request, response) {
   let sortBy = Object.keys(request.body)[0];
@@ -14,6 +13,11 @@ function displayBookshelf(request, response) {
     .then(databaseSearchResults => {
       response.render('pages/bookshelf', { homeArray: databaseSearchResults.rows, which: sortBy });
     }).catch(error => errorHandler(error, request, response));
+}
+
+function errorHandler(error, request, response) {
+  console.error(error);
+  response.status(500).redirect('/error');
 }
 
 module.exports.displayBookshelf = displayBookshelf;

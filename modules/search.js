@@ -4,7 +4,7 @@ const superagent = require('superagent');
 const pg = require('pg');
 require('dotenv').config();
 const dbClient = new pg.Client(process.env.DATABASE_URL);
-dbClient.connect().catch(err => console.log(err));
+dbClient.connect().catch(error => errorHandler(error));
 
 function searchForm(request, response) {
   response.status(200).render('searches/new');
@@ -34,6 +34,11 @@ function Book(obj) {
   this.description = obj.description || 'Description not available';
   this.isbn = obj.industryIdentifiers[0].identifier || 'ISBN not available';
   this.bookshelf = obj.bookshelf || '';
+}
+
+function errorHandler(error, request, response) {
+  console.error(error);
+  response.status(500).redirect('/error');
 }
 
 module.exports.searchForm = searchForm;

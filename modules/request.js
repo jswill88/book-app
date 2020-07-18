@@ -3,7 +3,7 @@
 const pg = require('pg');
 require('dotenv').config();
 const dbClient = new pg.Client(process.env.DATABASE_URL);
-dbClient.connect().catch(err => console.log(err));
+dbClient.connect().catch(error => errorHandler(error));
 
 
 function bookRequest(request, response) {
@@ -19,8 +19,11 @@ function bookRequest(request, response) {
         return arr;
       }, []);
       response.status(200).render('books/show', { book: book[0], bookshelves: shelves });
-    // }).catch(error => errorHandler(error, request, response));
-    }).catch(error => console.log(error));
+    }).catch(error => errorHandler(error, request, response));
+}
+function errorHandler(error, request, response) {
+  console.error(error);
+  response.status(500).redirect('/error');
 }
 
 module.exports.bookRequest = bookRequest;

@@ -3,7 +3,7 @@
 const pg = require('pg');
 require('dotenv').config();
 const dbClient = new pg.Client(process.env.DATABASE_URL);
-dbClient.connect().catch(err => console.log(err));
+dbClient.connect().catch(error => errorHandler(error));
 
 function addToDatabase(request, response) {
   let sql = 'SELECT * FROM books WHERE isbn = $1;';
@@ -18,11 +18,16 @@ function addToDatabase(request, response) {
           .then(store => {
             let id = store.rows[0].id;
             response.status(200).redirect(`/books/${id}`);
-          }).catch(error => console.log(error));
+          }).catch(error => errorHandler(error, request, response));
       } else {
         response.status(200).redirect(`/books/${result.rows[0].id}`);
       }
     });
+}
+
+function errorHandler(error, request, response) {
+  console.error(error);
+  response.status(500).redirect('/error');
 }
 
 module.exports.addToDatabase = addToDatabase;

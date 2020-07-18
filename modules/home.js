@@ -1,10 +1,9 @@
 'use strict';
 
 const pg = require('pg');
-require('dotenv').config();
 const dbClient = new pg.Client(process.env.DATABASE_URL);
 const jsonData = require('../data/initial.json');
-dbClient.connect().catch(err => console.log(err));
+dbClient.connect().catch(error => errorHandler(error));
 
 function renderHomePage(request, response) {
   let sql = 'SELECT * FROM books;';
@@ -23,7 +22,7 @@ function renderHomePage(request, response) {
         response.status(200).render('pages/index', { homeArray: databaseSearchResults.rows });
       }
     // }).catch(error => errorHandler(error, request, response));
-    }).catch(error => console.log(error));
+    }).catch(error => errorHandler(error, request, response));
 }
 
 function Book(obj) {
@@ -33,6 +32,11 @@ function Book(obj) {
   this.description = obj.description || 'Description not available';
   this.isbn = obj.industryIdentifiers[0].identifier || 'ISBN not available';
   this.bookshelf = obj.bookshelf || '';
+}
+
+function errorHandler(error, request, response) {
+  console.error(error);
+  response.status(500).redirect('/error');
 }
 
 module.exports.renderHomePage = renderHomePage;

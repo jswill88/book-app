@@ -46,9 +46,13 @@ h4 {
   }
   input[type="radio"] + fieldset label {
     line-height: 40px;
+    text-align: center;
   }
   input[type="radio"]:checked + fieldset{
     outline: rgba(3, 255, 179, 0.8) auto 3px;
+  }
+  input[type="radio"] + fieldset label:hover {
+    cursor: pointer;
   }
 
   fieldset {

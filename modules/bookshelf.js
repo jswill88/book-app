@@ -6,6 +6,9 @@ dbClient.connect().catch(error => errorHandler(error));
 
 function displayBookshelf(request, response) {
   let sortBy = Object.keys(request.body)[0];
+  if (!request.body[sortBy]) {
+    response.status(200).redirect('/');
+  }
   const authorOrBookshelf = request.body[sortBy];
   let sql = `SELECT DISTINCT id, title, authors, image_url, description, isbn, bookshelf FROM books WHERE ${sortBy}=$1;`;
   let safeValue = [authorOrBookshelf];

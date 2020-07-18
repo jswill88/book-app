@@ -1,0 +1,17 @@
+@media screen and (max-width: 500px) {
+nav a {
+  width: 100%;
+  margin: inherit 0;
+}
+
+}
+
+@media screen and (max-width: 720px) {
+  nav {
+    height: 80px;
+  }
+  nav a {
+    height: 40px;
+  }
+
+}

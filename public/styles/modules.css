@@ -189,10 +189,16 @@ nav a:hover {
   display: flex;
   justify-content: space-evenly;
   padding-bottom: 20px;
+  width: 100%;
 }
-.detail-buttons button {
+.detail-buttons button, .detail-buttons form {
   font-size: 1.1em;
-  width: 300px;
+  width: 40%;
+}
+.detail-buttons > form button {
+  /* font-size: 1.1em; */
+  width: 100%;
+  padding: 0;
 }
 footer div{
   display: flex;

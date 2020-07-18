@@ -26,7 +26,16 @@ main {
   width: 50%;
 
 }
-
+[action="/searches"] > fieldset {
+  /* display: hidden; */
+  width: 95% !important;
+}
+[action="/searches"] section {
+  width: 100%;
+}
+[action="/searches"] input, [action="/searches"] input + fieldset, [action="/searches"] button {
+  width: 90%;
+}
 
 }
 
@@ -56,9 +65,8 @@ main {
   margin-top: 4px;
 }
 [action^="/update"] input {
-  margin: 0;
-  /* padding: 0 5px; */
-  width: 100%;
+  margin: 0 10px;
+  width: 85%;
 }
 [action^="/update"] label:nth-last-of-type(2) {
   grid-column: 1 / span 1;
@@ -76,5 +84,15 @@ main {
 [action^="/update"] button {
   grid-column: 1 / span 1;
   grid-row: 7 /span 1;
+}
+.book-section p {
+  padding: 20px 20px;
+}
+
+[action="/searches"] > fieldset {
+  width: 70%;
+}
+[action="/searches"] section {
+  width: 100%;
 }
 }

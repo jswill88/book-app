@@ -36,6 +36,18 @@ main {
 [action="/searches"] input, [action="/searches"] input + fieldset, [action="/searches"] button {
   width: 90%;
 }
+.single-book form {
+  width: 80%;
+}
+
+[action^="/booksh"] {
+  display: block;
+  justify-self: center;
+}
+[action^="/booksh"] select {
+  margin-bottom: 10px;
+  width: 175px;
+}
 
 }
 

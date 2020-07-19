@@ -1,6 +1,5 @@
 <%- include ('../layout/head') %>
     <%- include('../layout/header') %>
-    <main>
             <section class="book-section">
         <% let regex = /(^a\s|^the\s)/i %>
         <%let newArray = searchResults.sort((a,b) => a.title.replace(regex,'') < b.title.replace(regex,'') ? -1 : 1) %>
@@ -32,5 +31,4 @@
             </form>
         <% }) %>
         </section>
-        </main>
         <%- include ('../layout/footer') %>

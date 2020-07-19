@@ -1,6 +1,5 @@
 <%- include ('../layout/head') %>
     <%- include ('../layout/header') %>
-    <main>
         <div class="book-section">
             <p>There are <%= homeArray.length %> books in this collection</p>
             <form action="/bookshelf?_method=PUT" method="POST">
@@ -33,5 +32,4 @@
             </form>
             <%- include ('../layout/single-book') %>
         </div>
-    </main>
     <%- include ('../layout/footer') %>

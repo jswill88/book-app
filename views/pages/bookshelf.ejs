@@ -1,6 +1,5 @@
   <%- include ('../layout/head.ejs') %>
     <%- include ('../layout/header') %>
-    <main>
       <div class="book-section">
         <% if (which === 'authors') { %>
     <h2>Books by <%=homeArray[0].authors.split(',').join(', ')%></h2>
@@ -9,5 +8,4 @@
         <% } %>
     <%- include ('../layout/single-book') %>
       </div>
-    </main>
     <%- include ('../layout/footer') %>

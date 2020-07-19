@@ -3,7 +3,6 @@
 *{
     box-sizing: border-box;
     font-family: 'Scope One', serif;
-    /* max-width: 100vw; */
   }
   main {
     padding-bottom: 11.5vh;
@@ -12,8 +11,6 @@
   }
   body {
     width: 100%;
-    /* width: 768px; */
-    /* margin: 0 auto; */
     text-align: center;
     background-color: #210d2d;
     min-height: 100vh;

@@ -27,7 +27,6 @@ main {
 
 }
 [action="/searches"] > fieldset {
-  /* display: hidden; */
   width: 95% !important;
 }
 [action="/searches"] section {

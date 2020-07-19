@@ -21,7 +21,6 @@ function renderHomePage(request, response) {
       } else {
         response.status(200).render('pages/index', { homeArray: databaseSearchResults.rows });
       }
-    // }).catch(error => errorHandler(error, request, response));
     }).catch(error => errorHandler(error, request, response));
 }
 
